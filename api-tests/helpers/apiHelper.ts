@@ -18,7 +18,7 @@ export class BookingApiHelper {
             data: {
                 username: 'admin',
                 password: 'password123',
-            },
+            }
         });
         if (response.status() === 200) {
             const responseBody: { token: string } = await response.json();
@@ -54,7 +54,6 @@ export class BookingApiHelper {
         if (response.status() < 200 || response.status() >= 300) {
             return null;
         }
-
         return response;
     }
 

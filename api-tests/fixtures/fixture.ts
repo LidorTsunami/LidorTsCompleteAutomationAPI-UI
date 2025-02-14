@@ -7,5 +7,5 @@ export const test: TestType<{ bookingApiHelper: BookingApiHelper }, {}> = base.e
     bookingApiHelper: async ({ request }: any, use:(r:BookingApiHelper) => Promise<void>) => {
         const helper = new BookingApiHelper(request);
         await use(helper);
-    },
+    }
 });

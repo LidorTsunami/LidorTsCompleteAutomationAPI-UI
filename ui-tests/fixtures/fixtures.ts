@@ -15,7 +15,6 @@ export const test: TestType<{
     homePage: HomePage;
     newClientPage: NewClientPage;
 }>({
-
     newPage: async ({}: any, use:(r:Page) => Promise<void>) => {
         const browser: Browser = await chromium.launch();
         const context: BrowserContext = await browser.newContext();

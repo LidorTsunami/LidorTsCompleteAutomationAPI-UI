@@ -111,5 +111,4 @@ export class BookingApiHelper {
         const fetchedBooking: Booking = await bookingApiHelper.getBookingById(bookingId);
         return { updatedBooking, fetchedBooking };
     }
-
 }

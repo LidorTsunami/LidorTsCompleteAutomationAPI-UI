@@ -22,7 +22,8 @@
     "isolatedModules": true
   },
   "include": [
-    "ui-tests/**/*.ts"
+    "ui-tests/**/*.ts",
+    "api-tests/**/*.ts"
   ],
   "exclude": [
     "node_modules",

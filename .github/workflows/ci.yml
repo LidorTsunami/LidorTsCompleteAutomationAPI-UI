@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Clear Node.js cache
+        run: |
+          sudo apt-get remove nodejs
+          sudo apt-get purge nodejs
+          sudo apt-get install -y nodejs
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -22,11 +28,7 @@ jobs:
         run: npm install
 
       - name: Install Playwright browsers
-        run: |
-          echo "Installing Playwright browsers..."
-          npx playwright install --force
-          npx playwright install chromium
-          echo "Playwright browsers installed!"
+        run: npx playwright install --force
 
       - name: Run Playwright API tests
         run: npx playwright test --project="API Tests"

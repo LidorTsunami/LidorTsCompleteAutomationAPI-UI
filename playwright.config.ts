@@ -17,7 +17,7 @@ export default defineConfig({
                 ...devices['Desktop Chrome'],
                 headless: true,
             },
-        }
+        },
     ],
     workers: 2
 });

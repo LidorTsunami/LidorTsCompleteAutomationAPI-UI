@@ -10,7 +10,7 @@ test('Health check', async ({ bookingApiHelper }: BookingApiHelperFixture) => {
 });
 
 test('Should fetch all bookings', async ({ bookingApiHelper }: BookingApiHelperFixture) => {
-    const bookings: Booking[] = await bookingApiHelper.getAllBookingsIds();
+    const bookings: Booking[] | null = await bookingApiHelper.getAllBookingsIds();
     expect(bookings).not.toBeNull();
     expect(Array.isArray(bookings)).toBe(true);
 });
@@ -30,11 +30,14 @@ test('Should update an existing booking', async ({ bookingApiHelper }: BookingAp
 
 test('Should partially update an existing booking', async ({ bookingApiHelper }: BookingApiHelperFixture) => {
     const { createdBooking } = await bookingApiHelper.createAndFetchBooking(bookingApiHelper, defaultBookingData);
-    const updatedBooking: Booking = await bookingApiHelper.partialUpdate(createdBooking.bookingid, partialUpdateData);
-    expect(updatedBooking.additionalneeds).toBe(partialUpdateData.additionalneeds);
-    const fetchedBookingAfterPartialUpdate: Booking = await bookingApiHelper.getBookingById(createdBooking.bookingid);
-    expect(fetchedBookingAfterPartialUpdate.additionalneeds).toBe(partialUpdateData.additionalneeds);
+    const updatedBooking: Booking | null = await bookingApiHelper.partialUpdate(createdBooking.bookingid, partialUpdateData);
+    expect(updatedBooking).not.toBeNull();
+    expect(updatedBooking!.additionalneeds).toBe(partialUpdateData.additionalneeds);
+    const fetchedBookingAfterPartialUpdate: Booking | null = await bookingApiHelper.getBookingById(createdBooking.bookingid);
+    expect(fetchedBookingAfterPartialUpdate).not.toBeNull();
+    expect(fetchedBookingAfterPartialUpdate!.additionalneeds).toBe(partialUpdateData.additionalneeds);
 });
+
 
 test('Should delete a booking', async ({ bookingApiHelper }: BookingApiHelperFixture) => {
     const { createdBooking } = await bookingApiHelper.createAndFetchBooking(bookingApiHelper, defaultBookingData);
@@ -44,8 +47,9 @@ test('Should delete a booking', async ({ bookingApiHelper }: BookingApiHelperFix
     expect(fetchedBooking).toBeNull();
 });
 
+
 test('Should handle booking not found on fetch by ID', async ({ bookingApiHelper }: BookingApiHelperFixture) => {
     const nonExistentBookingId = 9999;
-    const fetchedBooking: Booking = await bookingApiHelper.getBookingById(nonExistentBookingId);
+    const fetchedBooking: Booking | null = await bookingApiHelper.getBookingById(nonExistentBookingId);
     expect(fetchedBooking).toBeNull();
 });

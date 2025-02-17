@@ -47,33 +47,36 @@ export class BookingApiHelper {
             'Accept': 'application/json',
             'Cookie': `token=${token}`,
         };
-        const response: APIResponse = await this.request[method](url, {
+        const response: APIResponse | null = await (this.request as any)[method](url, {
             headers,
             data,
         });
-        if (response.status() < 200 || response.status() >= 300) {
+        if (!response || response.status() < 200 || response.status() >= 300) {
             return null;
         }
         return response;
     }
 
+
     public async getAllBookingsIds(): Promise<Booking[] | null> {
         const url: string = '/booking';
-        const response: APIResponse = await this.makeRequest('get', url);
+        const response: APIResponse | null = await this.makeRequest('get', url);
         return response ? await response.json() : null;
     }
 
     public async getBookingById(id: number): Promise<Booking | null> {
         const url: string = `/booking/${id}`;
-        const response: APIResponse = await this.makeRequest('get', url);
+        const response: APIResponse | null = await this.makeRequest('get', url);
         return response ? await response.json() : null;
     }
 
+
     public async createBooking(bookingData: Booking): Promise<BookingResponse | null> {
         const url: string = '/booking';
-        const response: APIResponse = await this.makeRequest('post', url, bookingData);
+        const response: APIResponse | null = await this.makeRequest('post', url, bookingData);
         return response ? await response.json() : null;
     }
+
 
     public async updateBooking(bookingId: number, bookingData: Booking): Promise<Booking | null> {
         const url: string = `/booking/${bookingId}`;
@@ -83,15 +86,16 @@ export class BookingApiHelper {
 
     public async partialUpdate(id: number, partialBookingData: Partial<Booking>): Promise<Booking | null> {
         const url: string = `/booking/${id}`;
-        const response: APIResponse = await this.makeRequest('patch', url, partialBookingData);
+        const response: APIResponse | null = await this.makeRequest('patch', url, partialBookingData);
         return response ? await response.json() : null;
     }
 
     public async deleteBooking(id: number): Promise<boolean> {
         const url: string = `/booking/${id}`;
-        const response: APIResponse = await this.makeRequest('delete', url);
-        return response && response.status() === 201;
+        const response: APIResponse | null = await this.makeRequest('delete', url);
+        return response ? response.status() === 201 : false;
     }
+
 
     public async createAndFetchBooking(
         bookingApiHelper: any,

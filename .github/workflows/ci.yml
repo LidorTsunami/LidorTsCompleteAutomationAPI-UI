@@ -22,7 +22,9 @@ jobs:
         run: npm install
 
       - name: Install Playwright browsers
-        run: npx playwright install --force
+        run: |
+          npx playwright install --force
+          npx playwright install chromium
 
       - name: Run Playwright API tests
         run: npx playwright test --project="API Tests"

@@ -18,6 +18,6 @@ Before running the tests, ensure you have the following installed:
 Clone the repository and install the required dependencies:
 
 ```bash
-git clone <repository_url>
-cd <repository_folder>
+git clone https://github.com/LidorTsunami/LidorTsCompleteAutomationAPI-UI
+cd LidorTsCompleteAutomationAPI-UI
 npm install

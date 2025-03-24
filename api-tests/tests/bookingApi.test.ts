@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from '../fixtures/fixture';
 import { Booking } from "../interfaces/booking.interface";
-import {BookingApiHelperFixture} from '../interfaces/fixture.interface'
+import {BookingApiHelperFixture} from '../interfaces/fixture.interface';
 import { defaultBookingData, updatedBookingData, partialUpdateData } from '../test-data/testData';
 
 test('Health check', async ({ bookingApiHelper }: BookingApiHelperFixture) => {
